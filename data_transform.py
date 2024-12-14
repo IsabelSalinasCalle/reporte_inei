@@ -7,9 +7,9 @@ archivo_csv_transformado = 'REPORTELINEA100_transformado.csv'
 try:
     # Leer el archivo CSV usando el delimitador ';'
     data = pd.read_csv(archivo_csv_salida)
-    
-    # Verificar que las columnas 'ANO' y 'DEPARTAMENTO' están presentes
-    if 'ANO' in data.columns and 'DEPARTAMENTO' in data.columns:
+   
+    # Verificar que la columna'DEPARTAMENTO' está presente
+    if  'DEPARTAMENTO' in data.columns:
         # Convertir las columnas de interés a tipo numérico, reemplazando valores no numéricos por 0
         columnas_a_sumar = [
             'No. DE CONSULTAS TELEFONICAS -TOTAL',
@@ -24,8 +24,8 @@ try:
             else:
                 print(f"Advertencia: La columna '{columna}' no está en los datos.")
         
-        # Agrupar los datos por 'ANO' y 'DEPARTAMENTO', y sumar las columnas de llamadas
-        reporte = data.groupby(['ANO', 'DEPARTAMENTO']).agg({
+        # Agrupar los datos por 'DEPARTAMENTO', y sumar las columnas de llamadas
+        reporte = data.groupby(['DEPARTAMENTO']).agg({
             'No. DE CONSULTAS TELEFONICAS -TOTAL': 'sum',
             'No. DE CONSULTAS TELEFONICAS - HOMBRES': 'sum',
             'No. DE CONSULTAS TELEFONICAS - MUJERES': 'sum'
@@ -44,7 +44,7 @@ try:
         
         print(f"Reporte generado y exportado exitosamente a {archivo_excel}")
     else:
-        print("Las columnas 'ANO' o 'DEPARTAMENTO' no están en los datos.")
+        print("La 'DEPARTAMENTO' no está en los datos.")
         
 except Exception as e:
     print(f"Error al generar el reporte: {e}")
